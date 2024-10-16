@@ -1,213 +1,166 @@
-import React, {useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from 'react-native';
-import ScreenLayout from '../../../components/ScreenLayout';
-import {scale, verticalScale} from 'react-native-size-matters';
-import CustomHeader from '../../../components/CustomHeader';
-import {colors} from '../../../utils/colors';
-import {RecommendedBookData, likedBookData} from '../../../utils/Data';
-import DiscountBooks from './DiscountBooks';
-import CustomSearch from '../../../components/CustomSearch';
-import {appStyles} from '../../../utils/AppStyles';
-import {images} from '../../../assets/images';
-import CustomText from '../../../components/CustomText';
-import {font} from '../../../utils/font';
-import BooksCard from '../../../components/BooksCard';
-import {windowWidth} from '../../../utils/Dimensions';
+import React, { useState } from "react";
+import { View, StyleSheet, Image, Platform, FlatList, ScrollView } from "react-native";
+import ScreenLayout from "../../../components/ScreenLayout";
+import { scale, verticalScale } from "react-native-size-matters";
+import { colors } from "../../../utils/colors";
+import CustomText from "../../../components/CustomText";
+import { images } from "../../../assets/images";
+import CustomHeader from "../../../components/CustomHeader";
+import ProjectContainer from "./ProjectContainer";
+import { appStyles } from "../../../utils/AppStyles";
+import AddProjectBox from "./AddProjectBox";
+import CustomButton from "../../../components/CustomButton";
+import CustomMenu from "../../../components/CustomMenu";
 
-const HomeScreen = ({navigation}: any) => {
-  const [activeTab, setActiveTab] = useState(0);
+const HomeScreen = ({ navigation }: any) => {
+    const [isMenuVisible, setIsMenuVisable] = useState(false);
 
+  const recentProjectsData = [
+    { title: "Project 1", image: images.room1 },
+    { title: "Project 2", image: images.room2 },
+    { title: "Project 3", image: images.room3 },
+    { title: "Project 4", image: images.room4 },
+  ];
+
+  const ScanConainer = ({ title, img, backgroundColor }: any) => {
+    return (
+      <View
+        style={{
+          ...styles.scanMain,
+          backgroundColor: backgroundColor || colors.light_green,
+        }}
+      >
+        <Image style={styles.scanImg} source={img} />
+        <CustomText
+          color={colors.light_black}
+          style={{ textAlign: "center" }}
+          text={title}
+          size={12}
+        />
+      </View>
+    );
+  };
   return (
+    <>
+    <ScrollView
+    style={{flex:1,
+        backgroundColor: colors.light_lavender,
+
+    }}
+    contentContainerStyle={{paddingBottom:verticalScale(20)}}
+    >
     <ScreenLayout
-      style={{
-        gap: verticalScale(15),
-      }}>
-      <ScrollView
-        style={{...appStyles.main}}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingBottom: verticalScale(20),
+        style={{
+          paddingHorizontal: scale(20),
+          backgroundColor: colors.light_lavender,
+          paddingTop: verticalScale(
+            Platform.OS == "ios" ? verticalScale(40) : verticalScale(10)
+          ),
           gap: verticalScale(15),
-        }}>
-        <View style={{paddingHorizontal: scale(20), gap: verticalScale(15)}}>
-          <CustomHeader />
-
-          <DiscountBooks />
-          <View style={appStyles.rowjustify}>
-            <CustomSearch 
-            onFocus={()=>navigation.navigate("SearchResultScreen")}
-            placeholder="Search" 
-            width={"80%"}
-            filter={true}
-            />
-          
-          </View>
-        </View>
-
-        <View>
-          <FlatList
-            data={[
-              'All',
-              'Literature',
-              'Journeys',
-              'History',
-              'Distribution',
-              'Careers',
-            ]}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={{paddingLeft: scale(20)}}
-            contentContainerStyle={{
-              gap: scale(10),
-              paddingRight: scale(40),
-            }}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({item, index}: any) => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.6}
-                  onPress={() => setActiveTab(index)}
-                  style={{
-                    // marginRight: scale(20),
-                    backgroundColor:
-                      activeTab == index ? colors.black : colors.white,
-                    borderRadius: 999,
-                    height: verticalScale(30),
-                    paddingHorizontal: scale(20),
-
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <CustomText
-                    color={activeTab == index ? colors.white : colors.grey}
-                    text={item}
-                    size={14}
-                  />
-                </TouchableOpacity>
-              );
-            }}
-          />
-        </View>
-
-        <View>
-          <CustomText
-            text={'Recommended'}
-            color={colors.black}
-            fontWeight="600"
+        }}
+      >
+        <CustomHeader 
+        label="Recent Projects!"
+        onPressLeft={()=>setIsMenuVisable(true)}
+        />
+        <View style={styles.container}>
+          <View
             style={{
-              marginLeft: scale(20),
-              marginBottom: verticalScale(10),
-              marginTop: verticalScale(5),
+              ...appStyles.row,
+              gap: scale(10),
+              flexWrap: "wrap",
             }}
-            fontFam={font.WorkSans_SemiBold}
-            size={14}
-          />
-          <View style={{...appStyles.row}}>
-            <FlatList
-              data={RecommendedBookData}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              ListFooterComponent={({item, index}: any) => {
-                return (
-                  <TouchableOpacity 
-                  activeOpacity={0.5}
-                  onPress={()=>navigation.navigate("RecommendedScreen")}
-
-                  style={styles.popularBox}>
-                    <View style={styles.popularContainer}>
-                      <Image
-                        source={images.add_unfill}
-                        style={{
-                          width: scale(22),
-                          height: scale(22),
-                          tintColor: colors.white,
-                        }}
-                        resizeMode="contain"
-                      />
-                    </View>
-
-                    <CustomText
-                      text={'View All Popular'}
-                      color={colors.white}
-                      size={14}
-                    />
-                  </TouchableOpacity>
-                );
-              }}
-              style={{paddingLeft: scale(20)}}
-              contentContainerStyle={{
-                paddingRight: scale(40),
-                gap: scale(15),
-              }}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({item, index}: any) => {
-                return (
-                  <View>
-                    <BooksCard
-                      onPress={() => navigation.navigate('BookDetailScreen')}
-                      data={item}
-                    />
-                  </View>
-                );
-              }}
+          >
+            {recentProjectsData.map((item, index) => {
+              return (
+                <View key={index.toString()}>
+                  <ProjectContainer data={item} />
+                </View>
+              );
+            })}
+            <AddProjectBox />
+          </View>
+        </View>
+        <View style={styles.container}>
+          <View
+            style={{
+              ...appStyles.rowjustify,
+              flexWrap: "wrap",
+              gap: verticalScale(12),
+            }}
+          >
+            <ScanConainer title={"Scans"} img={images.scans} />
+            <ScanConainer
+              title={"Scans"}
+              img={images.quotes}
+              backgroundColor={colors.light_blue}
+            />
+            <ScanConainer
+              title={"Invoices"}
+              img={images.Invoices}
+              backgroundColor={colors.light_yellow}
+            />
+            <ScanConainer
+              title={"Reports"}
+              img={images.reports}
+              backgroundColor={colors.light_orange}
             />
           </View>
         </View>
-      </ScrollView>
-    </ScreenLayout>
+
+        <View style={styles.bottomContainer}>
+          <CustomButton
+          onPress={()=>navigation.navigate("TermAndConditions")}
+           text="Start New Scan" >
+            <Image
+            style={{width:scale(20),height:scale(20),tintColor:colors.white}}
+            source={images.arrow_box}
+            />
+            </CustomButton>
+        </View>
+      </ScreenLayout>
+
+    </ScrollView>
+
+    <CustomMenu
+        isModalVisible={isMenuVisible}
+        setModalVisible={setIsMenuVisable}
+      />
+    
+    
+    </>
   );
 };
 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  tabBox: {
-    height: '100%',
-    width: '50%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'red',
+  logoContainer: {
+    width: scale(220),
+    height: scale(220),
+    borderBottomRightRadius: 999,
+    borderBottomLeftRadius: 999,
+    overflow: "hidden",
+    borderBottomWidth: 1,
   },
-  tabContainer: {
-    height: verticalScale(40),
-    width: '100%',
-    borderRadius: scale(10),
-    overflow: 'hidden',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
+  bottomContainer: {
+    // marginTop:verticalScale(10),
+    // paddingBottom: verticalScale(30),
+    alignItems: "center",
+  },
+
+  scanMain: {
+    paddingHorizontal: scale(10),
+    paddingVertical: verticalScale(12),
+    borderRadius: scale(15),
+    alignItems: "center",
+    width: "47%",
+  },
+  scanImg: { width: scale(70), height: scale(70) },
+  container: {
+    width: "100%",
+    borderRadius: scale(20),
     backgroundColor: colors.white,
-  },
-  filterContainer: {
-    height: verticalScale(39),
-    backgroundColor: colors.primary,
-    borderRadius: scale(8),
-    width: '15%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  popularContainer: {
-    width: scale(62),
-    height: scale(62),
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 999,
-    backgroundColor: '#FFFFFF20',
-  },
-  popularBox: {
-    width: windowWidth / 1.9,
-    height: verticalScale(240),
-    backgroundColor: colors.primary,
-    borderRadius: scale(10),
-    alignItems: 'center',
-    paddingTop: verticalScale(55),
-    gap: verticalScale(30),
+    padding: scale(15),
   },
 });

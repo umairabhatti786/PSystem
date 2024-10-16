@@ -12,7 +12,7 @@ type Props = {
   numberOfLines?: number;
   fontWeight?: string;
   textDecorationLine?: string;
-  label?: string;
+  label?: any;
 };
 
 const CustomText = ({
@@ -35,12 +35,9 @@ const CustomText = ({
 
         {
           color: color || colors.black,
-        
           fontSize: size || 10,
-          fontWeight: fontWeight || '400',
-          fontFamily: fontFam || font.WorkSans_Light,
-          
-        
+          fontWeight: fontWeight || '500',
+          fontFamily: fontFam || font.Montserrat_Regular,
           textDecorationLine: textDecorationLine,
           
 
@@ -50,6 +47,7 @@ const CustomText = ({
       ]}>
       {text}
       {label}
+      
     </Text>
   );
 };

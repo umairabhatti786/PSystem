@@ -70,30 +70,14 @@ const CustomInput = ({
           flexDirection: 'row',
           justifyContent: 'space-between',
           paddingHorizontal: scale(15),
-          height: verticalScale(height || 39),
+          height:height|| 49,
           alignItems: 'center',
-          borderColor: borderColor || '#E4E6EB',
+          borderColor: borderColor ,
           borderWidth: borderWidth,
-          borderRadius: borderRadius || scale(10),
+          borderRadius: borderRadius || scale(18),
           backgroundColor: backgroundColor || colors.white,
         }}>
-        {leftSource && (
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginRight: 10,
-            }}>
-            <Image
-              source={leftSource}
-              style={{
-                width: scale(15),
-                height: scale(15),
-              }}
-              resizeMode={'contain'}
-            />
-          </View>
-        )}
+       
         <TextInput
           value={value}
           editable={editable}
@@ -104,16 +88,15 @@ const CustomInput = ({
             justifyContent: 'center',
             textAlign:textAlign ||"left",
             textAlignVertical:textAlignVertical,
-            
             paddingVertical: 0, // Adjust as needed for centering
-            fontFamily: font.WorkSans_Regular,
+            fontFamily: font.Ubuntu_Regular,
             fontWeight: fontWeight||"500",
             color: color || colors.black,
             
           }}
           placeholder={placeholder}
           multiline={multiline}
-          placeholderTextColor={placeholderTextColor || colors.grey}
+          placeholderTextColor={placeholderTextColor || colors.black+"40"}
           keyboardType={keyboard}
           maxLength={maxLength}
           secureTextEntry={secureTextEntry || false}
@@ -121,25 +104,7 @@ const CustomInput = ({
           onBlur={onBlur}
           autoCapitalize="none"
         />
-        {rightSource && (
-          <TouchableOpacity
-            onPress={onShowPassword}
-            activeOpacity={0.6}
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%',
-            }}>
-            <Image
-              source={rightSource}
-              style={{
-                width: scale( rightSourceSize|| 17),
-                height: scale(rightSourceSize||17),
-              }}
-              resizeMode={'contain'}
-            />
-          </TouchableOpacity>
-        )}
+       
       </View>
 
       {error && (
@@ -148,10 +113,10 @@ const CustomInput = ({
             marginTop: verticalScale(5),
           }}>
           <CustomText
-            fontFam={font.WorkSans_Regular}
+            fontFam={font.Ubuntu_Regular}
             size={12}
             text={error}
-            color={colors.red}
+            color={colors.primary}
           />
         </View>
       )}

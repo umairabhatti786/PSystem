@@ -1,83 +1,74 @@
-import React, {useState} from 'react';
-import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import {scale} from 'react-native-size-matters';
-import {appStyles} from '../../utils/AppStyles';
-import {images} from '../../assets/images';
-import {useNavigation} from '@react-navigation/native';
-import CustomMenu from '../CustomMenu';
-import LogoutModal from '../LogoutModal';
-import { useDispatch } from 'react-redux';
-import { setUserLogin } from '../../redux/reducers/authReducer';
-type Props = {};
+import React, { useState } from "react";
+import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { scale } from "react-native-size-matters";
+import { appStyles } from "../../utils/AppStyles";
+import { images } from "../../assets/images";
+import { useNavigation } from "@react-navigation/native";
+import CustomMenu from "../CustomMenu";
+import { colors } from "../../utils/colors";
+import CustomText from "../CustomText";
+type Props = {
+  onPressLeft?: () => void;
+  onPressRight?: () => void;
+  rightIcon?: any;
+  leftIcon?: any;
+  label?: string;
+};
 
-const CustomHeader = ({}: Props) => {
+const CustomHeader = ({
+  onPressLeft,
+  onPressRight,
+  rightIcon,
+  leftIcon,
+  label,
+}: Props) => {
   const navigation: any = useNavigation();
-  const [isMenuVisible, setIsMenuVisable] = useState(false);
   const [isLogoutVisible, setIsLogoutVisible] = useState(false);
-  const dispatch=useDispatch()
   return (
     <>
       <View
         style={{
           ...appStyles.rowjustify,
-        }}>
-        <View style={{...appStyles.row, gap: scale(10)}}>
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => setIsMenuVisable(true)}
-            // onPress={() => navigation.navigate("Setting")}
-            style={styles.box}>
-            <Image
-              style={{
-                width: scale(25),
-                height: scale(25),
-              }}
-              resizeMode="contain"
-              source={images.drawer}
-            />
-          </TouchableOpacity>
-
+        }}
+      >
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={onPressLeft}
+          style={styles.box}
+        >
           <Image
-            style={{
-              width: scale(88),
-              height: scale(35),
-            }}
+            style={styles.icon}
             resizeMode="contain"
-            source={images.logo}
+            source={leftIcon || images.more}
           />
-        </View>
+        </TouchableOpacity>
+        {
+          label&&(
+            <CustomText
+            text={label}
+            color={colors.black}
+            size={16}
+          />
+
+          )
+        }
+
+       
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('Notifications')}
-          style={{...styles.box, alignItems: 'flex-end'}}>
+          activeOpacity={0.5}
+          onPress={onPressRight}
+          style={styles.box}
+        >
           <Image
-            style={{
-              width: scale(20),
-              height: scale(20),
-            }}
+            style={styles.icon}
             resizeMode="contain"
-            source={images.bell}
+            source={rightIcon || images.bell}
           />
         </TouchableOpacity>
       </View>
 
-      <CustomMenu
-        isModalVisible={isMenuVisible}
-        setIsLogoutVisible={setIsLogoutVisible}
-        setModalVisible={setIsMenuVisable}
-      />
-      <LogoutModal
-        modalVisible={isLogoutVisible}
-        setModalVisible={setIsLogoutVisible}
-        onCancel={() => {
-          setIsLogoutVisible(false);
-        }}
-        onLogout={() => {
-          
-          dispatch(setUserLogin(false))
-          setIsLogoutVisible(false);
-        }}
-      />
+     
     </>
   );
 };
@@ -86,9 +77,15 @@ export default CustomHeader;
 
 const styles = StyleSheet.create({
   box: {
-    width: scale(30),
-    height: scale(30),
-    alignItems: 'flex-start',
-    justifyContent: 'center',
+    width: scale(43),
+    height: scale(43),
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.white,
+    borderRadius: 999,
+  },
+  icon: {
+    width: scale(23),
+    height: scale(23),
   },
 });

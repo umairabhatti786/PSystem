@@ -20,6 +20,7 @@ type Props = {
   disable?: boolean;
   borderWidth?: number;
   paddingHorizontal?: number;
+  children?:any
 };
 
 const CustomButton = ({
@@ -37,6 +38,7 @@ const CustomButton = ({
   disable,
   borderWidth,
   paddingHorizontal,
+  children
 
 }: Props) => {
   return (
@@ -47,22 +49,25 @@ const CustomButton = ({
       style={{
         ...style,
         width: width || '100%',
-        height:verticalScale(height|| 38),
+        height:height ||48,
         backgroundColor: bgColor || colors.primary,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: scale(borderRadius || 10),
+        borderRadius: scale(borderRadius || 999),
         borderWidth: borderWidth || -1,
         borderColor: borderColor ,
         paddingHorizontal: paddingHorizontal,
+        flexDirection:"row",
+        gap:scale(15)
   
       }}>
+        {children}
       <CustomText
           text={text}
           color={textColor || colors.white}
           size={size ||  14}
-          fontWeight='500'
-          fontFam={fontFam || font.WorkSans_Regular}
+          fontWeight='600'
+          fontFam={fontFam || font.Montserrat_Medium}
         />
     </TouchableOpacity>
   );
