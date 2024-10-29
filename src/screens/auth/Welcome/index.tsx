@@ -26,8 +26,8 @@ const WelcomeScreen = ({ navigation }: any) => {
         >
           <View style={styles.logoContainer}>
             <Image
-              style={{ width: "100%", height: "100%" }}
-              resizeMode="center"
+              style={{ width: "110%", height: "110%" }}
+              resizeMode="contain"
               source={images.welcome_vr}
             />
           </View>
@@ -75,12 +75,12 @@ export default WelcomeScreen;
 
 const styles = StyleSheet.create({
   logoContainer: {
-    width: scale(220),
-    height: scale(220),
-    borderBottomRightRadius: 999,
-    borderBottomLeftRadius: 999,
+    width: scale(230),
+    height: scale(230),
     overflow: "hidden",
-    borderBottomWidth: 1,
+    borderRightColor:colors.grey200,
+    borderRadius:999
+   
   },
   bottomContainer: {
     gap: verticalScale(60),

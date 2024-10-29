@@ -125,7 +125,6 @@ const ProjectHome = ({ navigation }: any) => {
             textColor={colors.primary}
             bgColor={"transparent"}
             borderWidth={1}
-            // onPress={() => navigation.navigate("TermAndConditions")}
             text="Measure Again"
           />
         </View>

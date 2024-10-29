@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, Platform, FlatList, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Platform,
+  FlatList,
+  ScrollView,
+} from "react-native";
 import ScreenLayout from "../../../components/ScreenLayout";
 import { scale, verticalScale } from "react-native-size-matters";
 import { colors } from "../../../utils/colors";
@@ -11,16 +18,10 @@ import { appStyles } from "../../../utils/AppStyles";
 import AddProjectBox from "./AddProjectBox";
 import CustomButton from "../../../components/CustomButton";
 import CustomMenu from "../../../components/CustomMenu";
+import { recentProjectsData } from "../../../utils/Data";
 
 const HomeScreen = ({ navigation }: any) => {
-    const [isMenuVisible, setIsMenuVisable] = useState(false);
-
-  const recentProjectsData = [
-    { title: "Project 1", image: images.room1 },
-    { title: "Project 2", image: images.room2 },
-    { title: "Project 3", image: images.room3 },
-    { title: "Project 4", image: images.room4 },
-  ];
+  const [isMenuVisible, setIsMenuVisable] = useState(false);
 
   const ScanConainer = ({ title, img, backgroundColor }: any) => {
     return (
@@ -42,92 +43,91 @@ const HomeScreen = ({ navigation }: any) => {
   };
   return (
     <>
-    <ScrollView
-    style={{flex:1,
-        backgroundColor: colors.light_lavender,
-
-    }}
-    contentContainerStyle={{paddingBottom:verticalScale(20)}}
-    >
-    <ScreenLayout
-        style={{
-          paddingHorizontal: scale(20),
-          backgroundColor: colors.light_lavender,
-          paddingTop: verticalScale(
-            Platform.OS == "ios" ? verticalScale(40) : verticalScale(10)
-          ),
-          gap: verticalScale(15),
-        }}
+      <ScrollView
+        style={{ flex: 1, backgroundColor: colors.light_lavender }}
+        contentContainerStyle={{ paddingBottom: verticalScale(20) }}
       >
-        <CustomHeader 
-        label="Recent Projects!"
-        onPressLeft={()=>setIsMenuVisable(true)}
-        />
-        <View style={styles.container}>
-          <View
-            style={{
-              ...appStyles.row,
-              gap: scale(10),
-              flexWrap: "wrap",
-            }}
-          >
-            {recentProjectsData.map((item, index) => {
-              return (
-                <View key={index.toString()}>
-                  <ProjectContainer data={item} />
-                </View>
-              );
-            })}
-            <AddProjectBox />
+        <ScreenLayout
+          style={{
+            paddingHorizontal: scale(20),
+            backgroundColor: colors.light_lavender,
+            paddingTop: verticalScale(
+              Platform.OS == "ios" ? verticalScale(40) : verticalScale(10)
+            ),
+            gap: verticalScale(15),
+          }}
+        >
+          <CustomHeader
+            label="Recent Projects!"
+            onPressLeft={() => setIsMenuVisable(true)}
+          />
+          <View style={styles.container}>
+            <View
+              style={{
+                ...appStyles.row,
+                gap: scale(10),
+                flexWrap: "wrap",
+              }}
+            >
+              {recentProjectsData.map((item, index) => {
+                return (
+                  <View key={index.toString()}>
+                    <ProjectContainer data={item} />
+                  </View>
+                );
+              })}
+              <AddProjectBox />
+            </View>
           </View>
-        </View>
-        <View style={styles.container}>
-          <View
-            style={{
-              ...appStyles.rowjustify,
-              flexWrap: "wrap",
-              gap: verticalScale(12),
-            }}
-          >
-            <ScanConainer title={"Scans"} img={images.scans} />
-            <ScanConainer
-              title={"Scans"}
-              img={images.quotes}
-              backgroundColor={colors.light_blue}
-            />
-            <ScanConainer
-              title={"Invoices"}
-              img={images.Invoices}
-              backgroundColor={colors.light_yellow}
-            />
-            <ScanConainer
-              title={"Reports"}
-              img={images.reports}
-              backgroundColor={colors.light_orange}
-            />
+          <View style={styles.container}>
+            <View
+              style={{
+                ...appStyles.rowjustify,
+                flexWrap: "wrap",
+                gap: verticalScale(12),
+              }}
+            >
+              <ScanConainer title={"Scans"} img={images.scans} />
+              <ScanConainer
+                title={"Scans"}
+                img={images.quotes}
+                backgroundColor={colors.light_blue}
+              />
+              <ScanConainer
+                title={"Invoices"}
+                img={images.Invoices}
+                backgroundColor={colors.light_yellow}
+              />
+              <ScanConainer
+                title={"Reports"}
+                img={images.reports}
+                backgroundColor={colors.light_orange}
+              />
+            </View>
           </View>
-        </View>
 
-        <View style={styles.bottomContainer}>
-          <CustomButton
-          onPress={()=>navigation.navigate("TermAndConditions")}
-           text="Start New Scan" >
-            <Image
-            style={{width:scale(20),height:scale(20),tintColor:colors.white}}
-            source={images.arrow_box}
-            />
+          <View style={styles.bottomContainer}>
+            <CustomButton
+              onPress={() => navigation.navigate("TermAndConditions")}
+              text="Start New Scan"
+            >
+              <Image
+                style={{
+                  width: scale(20),
+                  height: scale(20),
+                  tintColor: colors.white,
+                }}
+                source={images.arrow_box}
+              />
             </CustomButton>
-        </View>
-      </ScreenLayout>
+          </View>
+        </ScreenLayout>
+      </ScrollView>
 
-    </ScrollView>
-
-    <CustomMenu
+      <CustomMenu
         isModalVisible={isMenuVisible}
         setModalVisible={setIsMenuVisable}
       />
-    
-    
     </>
   );
 };
@@ -135,17 +135,7 @@ const HomeScreen = ({ navigation }: any) => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  logoContainer: {
-    width: scale(220),
-    height: scale(220),
-    borderBottomRightRadius: 999,
-    borderBottomLeftRadius: 999,
-    overflow: "hidden",
-    borderBottomWidth: 1,
-  },
   bottomContainer: {
-    // marginTop:verticalScale(10),
-    // paddingBottom: verticalScale(30),
     alignItems: "center",
   },
 

@@ -3,7 +3,6 @@ primary:"#0000FF",
 primary100:"#005EFF",
 orange:"#F7941D",
 black:"#000000",
-
 white:"#FFFFFF",
 grey:"#5C5C5C",
 grey100:"#354249",

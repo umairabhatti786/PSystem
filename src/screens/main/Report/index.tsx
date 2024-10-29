@@ -16,24 +16,13 @@ import CustomHeader from "../../../components/CustomHeader";
 import CustomButton from "../../../components/CustomButton";
 import CustomMenu from "../../../components/CustomMenu";
 import { font } from "../../../utils/font";
-import CustomInput from "../../../components/CustomInput";
 import { appStyles } from "../../../utils/AppStyles";
+import { ProductItems } from "../../../utils/Data";
 
 const ReportScreen = ({ navigation }: any) => {
   const [isMenuVisible, setIsMenuVisable] = useState(false);
 
-  const ProductItems = [
-    {
-      title: "Dashboard Design",
-      quantity: "Quantity: 3 pages",
-      price: "$1,025.27",
-    },
-    {
-      title: "Component Design & Ar",
-      quantity: "Quantity: 1.5 hours",
-      price: "$145.92",
-    },
-  ];
+ ;
   return (
     <>
       <ScrollView
@@ -41,7 +30,7 @@ const ReportScreen = ({ navigation }: any) => {
           backgroundColor: colors.light_lavender,
         }}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom:verticalScale(120) }}
+        contentContainerStyle={{ paddingBottom:verticalScale( Platform.OS=="ios"? 120:140) }}
       >
         <ScreenLayout
           style={{
@@ -80,6 +69,17 @@ const ReportScreen = ({ navigation }: any) => {
                     flexDirection: "row",
                   }}
                 >
+                    <View
+                    style={styles.paidLabel}
+                    >
+                       <CustomText
+                      color={colors.white}
+                      fontFam={font.Inter_Regular}
+                      text={"PAID"}
+                      size={13}
+                    />
+
+                    </View>
                   <View
                     style={{
                       gap: verticalScale(15),
@@ -88,6 +88,7 @@ const ReportScreen = ({ navigation }: any) => {
                       borderRightWidth: 0.3,
                     }}
                   >
+                  
                     <View style={{ gap: verticalScale(5) }}>
                       <CustomText
                         color={colors.grey200}
@@ -124,7 +125,7 @@ const ReportScreen = ({ navigation }: any) => {
                       color={colors.grey200}
                       fontFam={font.Inter_Regular}
                       text={"SIGNATURE"}
-                      size={15}
+                      size={14}
                     />
                     <Image
                       style={{
@@ -307,7 +308,6 @@ const ReportScreen = ({ navigation }: any) => {
                       }}
                     >
                       <CustomButton
-                        onPress={() => navigation.navigate("TermAndConditions")}
                         width={scale(100)}
                         fontFam={font.Inter_Regular}
                         height={35}
@@ -401,7 +401,9 @@ const ReportScreen = ({ navigation }: any) => {
                     }}
                   >
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((it, ind) => {
-                      return <View style={styles.circleEdge} />;
+                      return <View 
+                      key={ind.toString()}
+                      style={styles.circleEdge} />;
                     })}
                   </View>
                 </View>
@@ -424,7 +426,6 @@ const ReportScreen = ({ navigation }: any) => {
 
       <View style={styles.bottomContainer}>
         <CustomButton
-          onPress={() => navigation.navigate("TermAndConditions")}
           text="Submit"
         />
         <CustomButton
@@ -432,7 +433,6 @@ const ReportScreen = ({ navigation }: any) => {
           textColor={colors.primary}
           bgColor={colors.light_lavender}
           borderWidth={1}
-          onPress={() => navigation.navigate("TermAndConditions")}
           text="Preview"
         />
       </View>
@@ -480,5 +480,20 @@ const styles = StyleSheet.create({
     height: scale(16),
     borderRadius: 999,
     backgroundColor: "#E6E6E6",
+  },
+  paidLabel: {
+    position: 'absolute',
+    top: verticalScale(-14),
+    right: scale(-35),
+    backgroundColor: '#3D9A56',
+    width:scale(75),
+    height:verticalScale(45),
+    alignItems:"center",
+    justifyContent:"center",
+    paddingRight:scale(10),
+    paddingTop:verticalScale(23),
+   
+   
+    transform: [{ rotate: '45deg' }], // Rotates to make it diagonal
   },
 });

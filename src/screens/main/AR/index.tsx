@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity, Platform } from "react-native";
 import ScreenLayout from "../../../components/ScreenLayout";
 import { scale, verticalScale } from "react-native-size-matters";
 import { colors } from "../../../utils/colors";
@@ -11,14 +11,22 @@ import { RNCamera } from "react-native-camera";
 import ARGuideModal from "./ARGuideModal";
 import { appStyles } from "../../../utils/AppStyles";
 import ScanCompleteModal from "./ScanCompleteModal";
+import CameraAccessModal from "./CameraAccessModal";
 
 const ARScreen = ({ navigation }: any) => {
   const cameraRef = useRef<any>();
   const [isCompleteGuide, setIsCompleteGuide] = useState(false);
   const [isScanned, setIsScanned] = useState(false);
   const [isScanComplete,setIsScanComplete]=useState(false)
+  const [isCameraAccess,setIsCameraAccess]=useState(false)
 
-  const [isARGuide, setIsARGuide] = useState(true);
+  const [isARGuide, setIsARGuide] = useState(false);
+
+  useEffect(()=>{
+    setIsCameraAccess(true)
+
+
+  },[])
 
   const Header = () => {
     return (
@@ -45,7 +53,11 @@ const ARScreen = ({ navigation }: any) => {
           style={styles.box}
         >
           <Image
-            style={styles.icon}
+            style={{
+              width: scale(15),
+              height: scale(15),
+
+            }}
             resizeMode="contain"
             source={images.setting}
           />
@@ -74,7 +86,7 @@ const ARScreen = ({ navigation }: any) => {
           <View
             style={{
               position: "absolute",
-              top: verticalScale(50),
+              top: verticalScale(Platform.OS=="ios"? 50:20),
               width: "100%",
               paddingHorizontal: scale(20),
             }}
@@ -166,12 +178,22 @@ const ARScreen = ({ navigation }: any) => {
 
 <ScanCompleteModal
         modalVisible={isScanComplete}
-        onComplete={() => {
-          setIsCompleteGuide(true);
+        onResult={() => {
+          setIsScanComplete(false);
           setTimeout(() => {
-            setIsCompleteGuide(false);
-            setIsScanned(true);
-          }, 2000);
+            navigation.navigate("ProjectHome")
+          }, 500);
+        }}
+        setModalVisible={setIsScanComplete}
+      />
+
+<CameraAccessModal
+        modalVisible={isCameraAccess}
+        onAllow={() => {
+          setIsCameraAccess(false);
+          setTimeout(() => {
+            setIsARGuide(true)
+          }, 500);
         }}
         setModalVisible={setIsScanComplete}
       />
@@ -204,8 +226,8 @@ const styles = StyleSheet.create({
     borderRadius: scale(17),
   },
   icon: {
-    width: scale(15),
-    height: scale(15),
+    width: scale(13),
+    height: scale(13),
   },
   cornerImage: {
     width: scale(25),

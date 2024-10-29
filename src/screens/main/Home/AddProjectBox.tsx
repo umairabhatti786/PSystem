@@ -15,22 +15,8 @@ type Props = {
 
 const AddProjectBox = ({ data }: Props) => {
   return (
-    <TouchableOpacity
-    activeOpacity={0.5}
-     style={{ ...style.main }}>
-      <View
-        style={{
-          width: scale(65),
-          alignItems: "center",
-          justifyContent: "center",
-          gap: verticalScale(12),
-          borderStyle:"dashed",
-          borderColor:"#3a475e",
-          borderWidth:1,
-          borderRadius:scale(7),
-          height:verticalScale(75)
-        }}
-      >
+    <TouchableOpacity activeOpacity={0.5} style={{ ...style.main }}>
+      <View style={style.inner}>
         <Image style={style.img} source={images.plus} />
         <CustomText
           color={"#3a475e"}
@@ -52,10 +38,20 @@ const style = StyleSheet.create({
     paddingBottom: verticalScale(15),
     borderRadius: scale(10),
     gap: verticalScale(12),
-    height:verticalScale(105),
-    alignItems:"center",
-    justifyContent:"center"
-
+    height: verticalScale(105),
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inner: {
+    width: scale(65),
+    alignItems: "center",
+    justifyContent: "center",
+    gap: verticalScale(12),
+    borderStyle: "dashed",
+    borderColor: "#3a475e",
+    borderWidth: 1,
+    borderRadius: scale(7),
+    height: verticalScale(75),
   },
   img: { width: scale(18), height: scale(18) },
 });

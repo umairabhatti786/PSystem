@@ -117,7 +117,7 @@ const QuotationGeneration = ({ navigation }: any) => {
           <TouchableOpacity
             style={{
               ...styles.container,
-              height: verticalScale(120),
+              height: verticalScale(130),
               alignItems: "center",
               justifyContent:"center",
               backgroundColor: "#F3F6FE",
@@ -161,7 +161,6 @@ const QuotationGeneration = ({ navigation }: any) => {
             textColor={colors.primary}
             bgColor={"transparent"}
             borderWidth={1}
-            onPress={() => navigation.navigate("TermAndConditions")}
             text="Preview"
           />
         </View>
@@ -191,15 +190,15 @@ const styles = StyleSheet.create({
     padding: scale(15),
   },
   uplaodImageContainer: {
-    width: scale(40),
-    height: scale(40),
+    width: scale(35),
+    height: scale(35),
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: colors.white,
     borderRadius: scale(7),
   },
   icon: {
-    width: scale(20),
-    height: scale(20),
+    width: scale(18),
+    height: scale(18),
   },
 });

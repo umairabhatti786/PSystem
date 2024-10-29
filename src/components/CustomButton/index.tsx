@@ -21,6 +21,7 @@ type Props = {
   borderWidth?: number;
   paddingHorizontal?: number;
   children?:any
+  fontWeight?:any
 };
 
 const CustomButton = ({
@@ -38,7 +39,8 @@ const CustomButton = ({
   disable,
   borderWidth,
   paddingHorizontal,
-  children
+  children,
+  fontWeight
 
 }: Props) => {
   return (
@@ -66,7 +68,7 @@ const CustomButton = ({
           text={text}
           color={textColor || colors.white}
           size={size ||  14}
-          fontWeight='600'
+          fontWeight={fontWeight ||'600'}
           fontFam={fontFam || font.Montserrat_Medium}
         />
     </TouchableOpacity>

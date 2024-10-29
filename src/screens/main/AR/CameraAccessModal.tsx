@@ -21,30 +21,12 @@ import {
   import { appStyles } from "../../../utils/AppStyles";
   import CustomButton from "../../../components/CustomButton";
   
-  const ScanCompleteModal = ({
+  const CameraAccessModal = ({
     modalVisible,
     setModalVisible,
-    onResult
+    onAllow
   }: any) => {
-    const [activeGuide, setActiveGuide] = useState(0);
-    const guideRef = useRef<any>(null);
-    const guideData = [
-      {
-        image: images.work_guide,
-        title: "How it works",
-        des: "Move around the pallet and scan by 360 degree",
-      },
-      {
-        image: images.scan_guide,
-        title: "How to scan ",
-        des: "Keep your camera on the pallet via scanning",
-      },
-      {
-        image: images.video_record_guide,
-        title: "Video record",
-        des: "You can record the video while you scanning.",
-      },
-    ];
+   
   
   
   
@@ -75,34 +57,37 @@ import {
               borderColor:colors.white
             }}
           >
+            <View style={{gap:verticalScale(2)}}>
 
-<Image
-                        style={{
-                          width: scale(35),
-                          height: scale(35),
-                          borderRadius:999,
-                        }}
-                        // resizeMode={"contain"}
-                        source={images.check}
-                      />
-                         <CustomText
+            <CustomText
                           color={colors.white}
                           fontFam={font.Inter_Bold}
                           fontWeight="700"
                           style={{ textAlign: "center" }}
-                          text={"Scan completed"}
+                          text={"Camera Access"}
                           size={15}
                         />
+
+                         <CustomText
+                          color={colors.white}
+                          fontFam={font.Inter_Regular}
+                          text={"App would like to access the camera"}
+                          size={13}
+                        />
+
+            </View>
+           
 
 <CustomButton
                 height={40}
                 // width={scale(125)}
                 fontFam={font.Ubuntu_Bold}
                 fontWeight={"700"}
+                borderRadius={10}
                 bgColor={colors.white}
                 textColor={colors.black}
-                onPress={onResult}
-                text="See the results"
+                onPress={onAllow}
+                text="Allow"
               />
   
               
@@ -120,7 +105,7 @@ import {
     );
   };
   
-  export default ScanCompleteModal;
+  export default CameraAccessModal;
   
   const styles = StyleSheet.create({
     imgContainer: {

@@ -79,7 +79,7 @@ const ARGuideModal = ({
       deviceWidth={windowWidth}
       onBackButtonPress={() => setModalVisible?.(false)}
       onBackdropPress={() => setModalVisible?.(false)}
-      backdropColor="rgba(0,0,0,0.2)"
+      backdropColor="rgba(0,0,0,0.6)"
       style={{ flex: 1 }}
     >
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
